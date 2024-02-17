@@ -7,7 +7,13 @@ from .models import Profile
 
 @login_required(login_url='signin')
 def index(request):
-    return render(request, "index.html")
+    user_objects = User.objects.get(username=request.user.username)
+    user_profile = Profile.objects.get(user=request.user)
+    return render(request, 'index.html', {'user_profile': user_profile})
+
+@login_required(login_url='signin')
+def upload(request):
+    return HttpResponse('<h1>Upload View</h1>')
 
 @login_required(login_url='signin')
 def settings(request):
